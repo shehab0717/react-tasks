@@ -1,28 +1,31 @@
 import React from 'react';
+import Search from '../components/Search';
 import SearchBtn from '../components/SearchBtn';
 
-class Layout extends React.Component{
+class Layout extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             search: false
         }
+        this.toggleSearch = this.toggleSearch.bind(this);
     }
 
-    toggleSearch(){
+    toggleSearch() {
         this.setState({
             search: !this.state.search
         })
     }
 
-    render(){
-        return (
+    render() {
+        return this.state.search
+            ? <Search cancelSearch={this.toggleSearch}/>
+            :
             <div className='container px-5'>
                 {this.props.children}
-                <SearchBtn />
+                <SearchBtn onclick={this.toggleSearch} />
             </div>
-        )
     }
 }
 
