@@ -22,7 +22,7 @@ class BooksList extends React.Component {
                 <div className="row">
                     {
                         this.state.books.map(
-                            book => <BookCard {...book} />
+                            book => <BookCard key={book.title} {...book} />
                         )
                     }
                 </div>
