@@ -1,12 +1,14 @@
 import React from "react";
-import BookCard from "./BookCard";
+import Loading from "./Loading";
+import BooksList from "./BooksList";
 
 class Search extends React.Component {
     constructor() {
         super();
         this.state = {
             searchText: '',
-            results: []
+            results: [],
+            loading: false
         }
 
         this.textChanged = this.textChanged.bind(this);
@@ -21,21 +23,23 @@ class Search extends React.Component {
                     <button className="btn btn-sm btn-outline-danger mx-4" onClick={this.props.cancelSearch}>cancel</button>
                 </div>
                 <div className="search-results">
-                    
+                    {
+                        this.state.loading
+                            ? <Loading />
+                            : <BooksList books={this.state.results} />
+                    }
                 </div>
             </>
+
         );
     }
 
-    fetchData(keyword) {
-        fetch(`http://openlibrary.org/search.json?q=${keyword}`)
-            .then((response) => response.json())
-            .then(
-                (data) => {
-                    const books = this.mapResults(data.docs);
-                    this.setState({ results: books });
-                }
-            )
+    async fetchData(keyword) {
+        const response = await fetch(`http://openlibrary.org/search.json?q=${keyword}`)
+        const data = await response.json();
+        const books = this.mapResults(data.docs);
+        console.log(books);
+        this.setState({ results: books });
     }
 
     mapResults(results) {
@@ -53,9 +57,9 @@ class Search extends React.Component {
     textChanged(event) {
         this.setState({ searchText: event.target.value });
         clearTimeout(this.timerId);
-        this.timerId = setTimeout(() => {
+        this.timerId = setTimeout(async () => {
             this.fetchData(this.state.searchText);
-        }, 1000)
+        }, 1000);
 
     }
 }

@@ -7,8 +7,9 @@ function App() {
   return (
     <div className="container">
       <Layout>
-        <BooksList title="Reading"/>
-        <BooksList title="Want to read"/>
+        <BooksList title="Reading" books={[]}/>
+        <BooksList title="Want to read" books={[]}/>
+        <BooksList title="Read" books={[]}/>
       </Layout>
     </div>
   );

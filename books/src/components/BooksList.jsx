@@ -5,13 +5,7 @@ class BooksList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            books: [
-                { title: 'Book 1' },
-                { title: 'Book 2' },
-                { title: 'Book 3' }
-            ]
-        }
+        console.log(this.props);
     }
 
     render() {
@@ -21,7 +15,7 @@ class BooksList extends React.Component {
                 <h2>{this.props.title}</h2>
                 <div className="row">
                     {
-                        this.state.books.map(
+                        this.props.books.map(
                             book => <BookCard key={book.title} {...book} />
                         )
                     }
