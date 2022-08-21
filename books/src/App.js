@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import BookCard from './components/BookCard';
+import Layout from './layouts/_Layout'
+import BooksList from  './components/BooksList';
 
 function App() {
   return (
     <div className="container">
-      <BookCard />
+      <Layout>
+        <BooksList title="Reading"/>
+        <BooksList title="Want to read"/>
+      </Layout>
     </div>
   );
 }
