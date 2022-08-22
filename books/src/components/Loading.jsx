@@ -8,7 +8,7 @@ class Loading extends React.Component{
 
     render(){
         return (
-            <div>Loading ...</div>
+            <div className='spinner'></div>
         )
     }
 }

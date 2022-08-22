@@ -38,7 +38,7 @@ class Search extends React.Component {
         const response = await fetch(`http://openlibrary.org/search.json?q=${keyword}`)
         const data = await response.json();
         const books = this.mapResults(data.docs);
-        this.setState({ results: books });
+        this.setState({ results: books, loading: false });
     }
 
     mapResults(results) {
@@ -59,7 +59,7 @@ class Search extends React.Component {
         return bookKey.split('/')[2];
     }
     textChanged(event) {
-        this.setState({ searchText: event.target.value });
+        this.setState({ searchText: event.target.value, loading: true });
         clearTimeout(this.timerId);
         this.timerId = setTimeout(async () => {
             this.fetchData(this.state.searchText);
