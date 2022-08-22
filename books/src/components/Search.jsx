@@ -26,7 +26,7 @@ class Search extends React.Component {
                     {
                         this.state.loading
                             ? <Loading />
-                            : <BooksList books={this.state.results} />
+                            : <BooksList data={this.state.results} />
                     }
                 </div>
             </>
