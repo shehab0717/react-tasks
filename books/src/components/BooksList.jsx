@@ -15,7 +15,7 @@ class BooksList extends React.Component {
                 <div className="row">
                     {
                         this.props.data.map(
-                            book => <BookCard key={book.title} {...book} />
+                            book => <BookCard key={book.id} {...book} />
                         )
                     }
                 </div>

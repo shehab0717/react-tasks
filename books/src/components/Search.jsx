@@ -38,7 +38,6 @@ class Search extends React.Component {
         const response = await fetch(`http://openlibrary.org/search.json?q=${keyword}`)
         const data = await response.json();
         const books = this.mapResults(data.docs);
-        console.log(books);
         this.setState({ results: books });
     }
 
@@ -47,12 +46,17 @@ class Search extends React.Component {
         const ret = booksWithCover.map(
             result => {
                 return {
+                    id: this.bookId(result.key),
                     title: result.title,
                     cover: `https://covers.openlibrary.org/b/id/${result.cover_i}.jpg`
                 }
             }
         )
         return ret;
+    }
+
+    bookId(bookKey){
+        return bookKey.split('/')[2];
     }
     textChanged(event) {
         this.setState({ searchText: event.target.value });
