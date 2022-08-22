@@ -15,7 +15,6 @@ function withLocalStorage(WrappedComponent, key){
         render(){
 
             const data = localStorage.getItem(key);
-            console.log(data);
             const jsonData = JSON.parse(data) ?? [];
             return <WrappedComponent {...this.props} data={jsonData}/>
         }
