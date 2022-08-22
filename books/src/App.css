@@ -72,3 +72,12 @@
   border-top-color: #000;
   animation: spinner .6s linear infinite;
 }
+
+.empty-list{
+  font-size: 22px;
+  text-align: center;
+  padding: 20px 0px;
+  color: rgb(241, 184, 183);
+  background-color: rgb(255, 210, 210);
+  border-radius: 20px;
+}

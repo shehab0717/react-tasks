@@ -5,7 +5,7 @@ class BooksList extends React.Component {
 
     constructor(props) {
         super(props);
-        
+
     }
 
 
@@ -13,12 +13,18 @@ class BooksList extends React.Component {
 
         return (
             <div className="mt-5">
-                <h2>{this.props.title}</h2>
+                <h4>{this.props.title}</h4>
                 <div className="row">
                     {
-                        this.props.data.map(
-                            book => <BookCard key={book.id} {...book} updateList={this.props.refresh} />
-                        )
+                        (this.props.data.length > 0)
+                            ? (this.props.data.map(
+                                book => <BookCard key={book.id} {...book} updateList={this.props.refresh} />
+                            )):(
+                                <div className='empty-list'>
+                                    No books
+                                </div>
+                            )
+                            
                     }
                 </div>
             </div>
