@@ -3,6 +3,7 @@ import './App.css';
 import Layout from './layouts/_Layout'
 import BooksList from  './components/BooksList';
 import withLocalStorage from './HOC/WithLocalStorage';
+import Home from './components/Home';
 
 function App() {
   const ReadingBookList = withLocalStorage(BooksList, 'reading');
@@ -11,9 +12,7 @@ function App() {
   return (
     <div className="container">
       <Layout>
-        <ReadingBookList title="Reading"/>
-        <ToReadBookList title="Want to read"/>
-        <ReadBookList title="read"/>
+        <Home />
       </Layout>
     </div>
   );

@@ -17,7 +17,7 @@ function withLocalStorage(WrappedComponent, key){
             const data = localStorage.getItem('books');
             const jsonData = JSON.parse(data) ?? [];
             const filteredBooks = jsonData.filter(book=>book.list == key);
-            return <WrappedComponent {...this.props} data={filteredBooks}/>
+            return <WrappedComponent {...this.props} type={key} data={filteredBooks}/>
         }
 
     }
