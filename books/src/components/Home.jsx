@@ -14,11 +14,14 @@ class Home extends React.Component {
         const books = JSON.parse(localStorage.getItem('books'));
         this.setState({ books: books ?? [] });
     }
+    getBooks(listName){
+        return this.state.books.filter(book=>book.list == listName);
+    }
     render() {
         return (<>
-            <BooksList title='Reading' refresh={this.refresh} books={this.state.books} type='reading' />
-            <BooksList title='Want to read' refresh={this.refresh} books={this.state.books} type='toRead' />
-            <BooksList title='Read' refresh={this.refresh} books={this.state.books} type='read'/>
+            <BooksList title='Reading' refresh={this.refresh} books={this.getBooks('reading')}/>
+            <BooksList title='Want to read' refresh={this.refresh} books={this.getBooks('toRead')}/>
+            <BooksList title='Read' refresh={this.refresh} books={this.getBooks('read')} />
         </>);
     }
 }

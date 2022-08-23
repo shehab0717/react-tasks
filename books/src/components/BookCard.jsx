@@ -38,7 +38,7 @@ class BookCard extends React.Component {
     render() {
         const { title, cover } = this.props;
         return (
-            <div className="col-sm-6 col-xs-12 col-md-4 mb-4">
+            <div className="col-sm-6 col-xs-12 col-md-4 col-lg-3 mb-4">
                 <div className="card book-card">
                     <div className="card-image">
                         <img className="w-100" src={cover} alt="" />
