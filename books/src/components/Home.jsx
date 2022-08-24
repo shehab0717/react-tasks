@@ -15,6 +15,9 @@ class Home extends React.Component {
         const books = JSON.parse(localStorage.getItem('books'));
         this.setState({ books: books ?? [] });
     }
+    getBooks(listName){
+        return this.state.books.filter(book=>book.list == listName);
+    }
     render() {
         return (<>
             <BooksList title='Reading' refresh={this.refresh} books={this.state.books} type='reading' />
