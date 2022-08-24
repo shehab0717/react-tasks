@@ -20,9 +20,9 @@ class Home extends React.Component {
     }
     render() {
         return (<>
-            <BooksList title='Reading' refresh={this.refresh} books={this.state.books} type='reading' />
-            <BooksList title='Want to read' refresh={this.refresh} books={this.state.books} type='toRead' />
-            <BooksList title='Read' refresh={this.refresh} books={this.state.books} type='read'/>
+            <BooksList title='Reading' refresh={this.refresh} books={this.getBooks('reading')} type='reading' />
+            <BooksList title='Want to read' refresh={this.refresh} books={this.getBooks('toRead')} type='toRead' />
+            <BooksList title='Read' refresh={this.refresh} books={this.getBooks('read')} type='read'/>
             <Link className="search-btn" to='/search'>+Book</Link>
         </>);
     }
