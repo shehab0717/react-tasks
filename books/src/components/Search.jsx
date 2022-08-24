@@ -1,6 +1,7 @@
 import React from "react";
 import Loading from "./Loading";
 import BooksList from "./BooksList";
+import {Link} from 'react-router-dom';
 
 class Search extends React.Component {
     constructor() {
@@ -20,7 +21,7 @@ class Search extends React.Component {
             <>
                 <div className="d-flex flex-row py-4">
                     <input placeholder="What are you searching for?" className="form-control" value={this.state.searchText} onChange={this.textChanged} type="text" name="" id="search-box" />
-                    <button className="btn btn-sm btn-outline-danger mx-4" onClick={this.props.cancelSearch}>cancel</button>
+                    <Link className="btn btn-sm btn-outline-danger mx-4 pt-2 px-2" to='/'>X</Link>
                 </div>
                 <div className="search-results">
                     {

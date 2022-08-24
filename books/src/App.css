@@ -43,6 +43,9 @@
 
 .search-btn{
   padding: 0px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   border-radius: 10px;
   background-color: rgb(0, 0, 0);
@@ -51,6 +54,12 @@
   position: fixed;
   right: 10px;
   bottom: 50px;
+  text-decoration: none;
+}
+
+.search-btn:hover{
+  color: white;
+  background-color: rgb(42, 42, 42);
 }
 
 @keyframes spinner {
