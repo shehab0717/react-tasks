@@ -33,6 +33,7 @@
 .book-card{
   position: relative;
   box-shadow: -4px 4px 4px rgb(201, 201, 201);
+  cursor: pointer;
 }
 .book-title{
   font-size: 20px;

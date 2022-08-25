@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Home from '../components/Home';
 import Search from '../components/Search';
-import SearchBtn from '../components/SearchBtn';
+import BookDetails from '../components/BookDetails';
 
 class Layout extends React.Component {
 
@@ -28,19 +28,12 @@ class Layout extends React.Component {
                     <Routes>
                         <Route path='/' element={<Home/>} />
                         <Route path='/search' element={<Search />} />
+                        <Route path='/details/:bookId' element={<BookDetails />} />
                     </Routes>
                 </BrowserRouter>
                 <Outlet />
             </>
         )
-        
-        // return this.state.search
-        //     ? <Search cancelSearch={this.toggleSearch}/>
-        //     :
-        //     <div className='container px-5'>
-        //         {this.props.children}
-        //         <SearchBtn onclick={this.toggleSearch} />
-        //     </div>
     }
 }
 
