@@ -1,0 +1,58 @@
+.spaced-word{
+    letter-spacing: 6px;
+    font-size: 1.2rem;
+    line-height: 20px;
+    
+}
+
+body{
+    color: white;
+    background-color: rgb(17, 17, 33);
+}
+.all-caps{
+    text-transform: uppercase;
+}
+
+
+.text-green{
+    color: rgb(94, 185, 64);
+}
+
+.follower-card{
+    color: rgb(172, 172, 172);
+    background-color: rgb(23, 23, 70);
+    overflow: hidden;
+    position: relative;
+}
+
+.follower-card .title{
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.follower-card h1{
+    color: white;
+}
+
+
+.follower-card::before{
+    content: '';
+    height: 5px;
+    /* background-image: linear-gradient(to right, rgb(73, 73, 255), rgb(37, 37, 190)); */
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.instagram::before{
+    background-image: linear-gradient(to right, rgb(209, 42, 0), rgb(185, 190, 37));
+}
+.facebook::before{
+    background-image: linear-gradient(to right, rgb(73, 73, 255), rgb(37, 37, 190));
+}
+.twitter::before{
+    background-image: linear-gradient(to right, rgb(38, 139, 255), rgb(0, 204, 255));
+}
+.pinterest::before{
+    background-image: linear-gradient(to right, rgb(255, 0, 0), rgb(190, 68, 37));
+}
