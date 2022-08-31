@@ -1,15 +1,20 @@
 import FollowersCard from '../FollowersCard/FollowersCard';
 import './Followers.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+ import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
-export default function Followers(){
+library.add(fab, faCaretUp)
+
+export default function Followers() {
     return (
         <div className="Followers mt-5">
             <div className="container">
                 <div className="row">
-                    <FollowersCard borderClass='facebook'   title='facebook - @blooming' totalFollowers={32432} todayFollowers={711}/>
-                    <FollowersCard borderClass='twitter' title='twitter - @blooming' totalFollowers={5698} todayFollowers={500}/>
-                    <FollowersCard borderClass='instagram' title='instagram - @blooming' totalFollowers={8423} todayFollowers={211}/>
-                    <FollowersCard borderClass='pinterest' title='pinterest - @blooming' totalFollowers={11223} todayFollowers={20}/>
+                    <FollowersCard borderClass='facebook' iconClass='fa-brands fa-facebook' totalFollowers={32432} todayFollowers={711} />
+                    <FollowersCard borderClass='twitter' iconClass='fa-brands fa-facebook' totalFollowers={5698} todayFollowers={500} />
+                    <FollowersCard borderClass='instagram' iconClass='fa-brands fa-facebook' totalFollowers={8423} todayFollowers={211} />
+                    <FollowersCard borderClass='pinterest' iconClass='fa-brands fa-facebook' totalFollowers={11223} todayFollowers={20} />
                 </div>
             </div>
         </div>

@@ -1,0 +1,19 @@
+:root{
+    --bg-color: rgb(17, 17, 33);
+    --card-color: rgb(23, 23, 70);
+    --secondary-color: rgb(172, 172, 172);
+    --text-color: white;
+}
+
+body{
+    color: var(--text-color);
+    background-color: rgb(17, 17, 33);
+}
+
+.light-text{
+    color: white;
+}
+
+.green-text{
+    color: green;
+}
