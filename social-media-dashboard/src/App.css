@@ -7,17 +7,41 @@
 
 body{
     color: var(--text-color);
-    background-color: rgb(17, 17, 33);
+    /* background-color: var(--bg-color); */
 }
 
 .light-text{
+    color: black;
+}
+.dark-text{
     color: white;
+}
+
+.dark-bg{
+    background-color: var(--bg-color);
+}
+
+.light-bg{
+    background-color: white;
+}
+
+.dark-card{
+    background-color: var(--card-color);
+}
+
+.light-card{
+    background-color: rgb(240, 240, 240);
 }
 
 .green-text{
     color: green;
 }
 
+.text-color{
+    color: gray;
+}
+
 .negative{
     color: red;
 }
+
