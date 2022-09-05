@@ -11,6 +11,7 @@ export default function Users() {
         dispatch(fetchUsers());
     }, [])
 
+    console.log(users);
     if (loading)
         return <div>Loading...</div>
     return <ul>

@@ -30,6 +30,7 @@ export const fetchUsers = () => async (dispatch) => {
     dispatch(fetchUsersStart());
     try{
         const users = await getUsers(1, 20);
+        console.log(users);
         dispatch(fetchUsersSuccess(users.data));
     }
     catch(error){
