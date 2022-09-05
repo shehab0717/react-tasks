@@ -7,11 +7,13 @@ export default function Users() {
     const users = useSelector(({ users }) => users.usersData);
     const loading = useSelector(({ users }) => users.loading);
 
-    useEffect(() => {
-        dispatch(fetchUsers());
-    }, [])
-
-    console.log(users);
+   
+    useEffect(
+        ()=>{
+            dispatch(fetchUsers());
+        },
+        []
+    );
     if (loading)
         return <div>Loading...</div>
     return <ul>

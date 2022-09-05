@@ -11,7 +11,6 @@ function fetchUsersStart() {
 }
 function fetchUsersSuccess(usersData) {
     console.log('fetch users succeeded');
-    console.log(usersData);
     return {
         type: userActionTypes.FETCH_USERS_SUCCESS,
         payload: usersData

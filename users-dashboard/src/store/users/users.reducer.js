@@ -1,7 +1,7 @@
 
 import userActionTypes from "./users.types"
 const initialState = {
-    loading: false,
+    loading: true,
     usersData: {}, //pageNumber, total, users(Array)
     userDetails: {},
     error: false,
