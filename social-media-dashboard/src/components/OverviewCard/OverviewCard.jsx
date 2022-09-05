@@ -1,23 +1,24 @@
 import './OverviewCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {ThemeContext} from '../../Context/ThemeContext';
 
-export default function OverviewCard() {
-    const title = 'page views';
-    const count = 300;
-    const percentage = 3;
+export default function OverviewCard({ title, count, percentage, icon }) {
     return (
-        <div className="col-sm-6 col-md-4 col-md-3">
-            <div className='d-flex flex-column'>
-                <div className='d-flex justify-content-between'>
-                    <span className='text-secondary fw-bold'>{title}</span>
-                    <FontAwesomeIcon icon='fa-brands fa-facebook' size='2x' />
+        <ThemeContext.Consumer>
+            {({theme}) =>
+                <div className="col-sm-6 col-lg-3 mb-4">
+                    <div className={`${theme}-card d-flex flex-column overview-card`}>
+                        <div className='d-flex justify-content-between align-items-center'>
+                            <span className='text-secondary fw-bold'>{title}</span>
+                            <FontAwesomeIcon icon={icon} size='2x' className={`${theme}-text`} />
+                        </div>
+                        <div className='d-flex justify-content-between align-items-center mt-4'>
+                            <span className={`${theme}-text fw-bold fs-3`}>{count}</span>
+                            <span className={`green-text fw-bold ${percentage < 0 ? 'negative' : ''}`}>{percentage}%</span>
+                        </div>
+                    </div>
                 </div>
-                <div className='d-flex justify-content-between'>
-                    <span className='light-text fw-bold fs-3'>{count}</span>
-                    <FontAwesomeIcon icon="fa-sharp fa-solid fa-caret-up" />
-                    <span className='green-text fw-bold'>{percentage}%</span>
-                </div>
-            </div>
-        </div>
+            }
+        </ThemeContext.Consumer>
     )
 }

@@ -16,8 +16,7 @@
 }
 
 .follower-card{
-    color: rgb(172, 172, 172);
-    background-color: rgb(23, 23, 70);
+    /* background-color: rgb(23, 23, 70); */
     overflow: hidden;
     position: relative;
 }
@@ -25,10 +24,6 @@
 .follower-card .title{
     font-weight: bold;
     font-size: 0.9rem;
-}
-
-.follower-card h1{
-    color: white;
 }
 
 
