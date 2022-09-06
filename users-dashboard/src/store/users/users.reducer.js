@@ -19,7 +19,8 @@ const usersReducer =  (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                usersData: action.payload
+                usersData: action.payload.data,
+                pageNumber: action.payload.page,
             }
 
         case userActionTypes.FETCH_USERS_FAIL:

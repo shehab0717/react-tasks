@@ -9,11 +9,11 @@ function fetchUsersStart() {
     }
 
 }
-function fetchUsersSuccess(usersData) {
+function fetchUsersSuccess(users) {
     console.log('fetch users succeeded');
     return {
         type: userActionTypes.FETCH_USERS_SUCCESS,
-        payload: usersData
+        payload: users
     }
 
 }
@@ -30,7 +30,7 @@ export const fetchUsers = () => async (dispatch) => {
     try{
         const users = await getUsers(1, 20);
         console.log(users);
-        dispatch(fetchUsersSuccess(users.data));
+        dispatch(fetchUsersSuccess(users));
     }
     catch(error){
         dispatch(fetchUsersFailure("Error: can't fetch users!"));
