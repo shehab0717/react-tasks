@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/users/users.action";
+import MaterialTable from "material-table";
 import UserRow from "../user-row/UserRow";
 
 export default function Users() {
     const dispatch = useDispatch();
     const users = useSelector(({ users }) => users.usersData);
-    const pageNumber = useSelector(({users})=>users.pageNumber)
+    const pageNumber = useSelector(({ users }) => users.pageNumber)
     const loading = useSelector(({ users }) => users.loading);
 
 
@@ -18,9 +19,25 @@ export default function Users() {
     );
     if (loading)
         return <div>Loading...</div>
+
+    // const data = [
+    //     { name: "Mohammad", surname: "Faisal", birthYear: 1995 },
+    //     { name: "Nayeem Raihan ", surname: "Shuvo", birthYear: 1994 },
+    // ];
+
+
+    const columns = [
+        { title: "ID", field: "id" },
+        { title: "Title", field: "title"},
+        { title: "First Name", field: "firstName" },
+        { title: "Last Name", field: "lastName"},
+    ];
+
+    
     return (
         <>
-            <table className="tabel-fixed border">
+            <MaterialTable title="Basic Table" columns={columns} data={users} />
+            {/* <table className="tabel-fixed border">
                 <thead>
                     <tr>
                         <th className="py-1 px-3 border border-black">ID</th>
@@ -30,13 +47,11 @@ export default function Users() {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user)=><UserRow {...user} />)}
+                    {users.map((user) => <UserRow {...user} />)}
                 </tbody>
-            </table>
-            
-            page number: {pageNumber}
+            </table> */}
         </>
-            
+
     )
 
 
