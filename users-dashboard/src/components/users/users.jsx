@@ -4,6 +4,7 @@ import { fetchUsers } from "../../store/users/users.action";
 import Search from "../Search/Search";
 import { FormControl, IconButton, Pagination, Paper, NativeSelect, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
+import { showCreateUserForm } from "../../store/UI/ui.actions";
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -32,13 +33,17 @@ export default function Users() {
         let newPage = Math.ceil(prevElementsCount / newLimit);
         dispatch(fetchUsers(newPage, newLimit));
     }
+    function showUserForm(){
+        console.log('btn clicked');
+        dispatch(showCreateUserForm());
+    }
     if (loading)
         return <div>Loading...</div>
     return (
         <div>
             <div className="d-flex flex-row justify-content-between p-4">
                 <h2>User management</h2>
-                <button className="btn btn-success">+ Add new</button>
+                <button className="btn btn-success" onClick={showUserForm}>+ Add new</button>
             </div>
             <Search />
             <div style={{ height: 500, width: '100%' }}>
