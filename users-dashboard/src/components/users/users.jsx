@@ -10,6 +10,8 @@ export default function Users() {
     const dispatch = useDispatch();
     const users = useSelector(({ users }) => users.usersData);
     const pageNumber = useSelector(({ users }) => users.pageNumber);
+    const error = useSelector(({ users }) => users.error);
+    const errorMessage = useSelector(({ users }) => users.errorMessage);
     const totalPages = useSelector(({ users }) => users.totalPages);
     const loading = useSelector(({ users }) => users.loading);
     const limit = useSelector(({ users }) => users.limit);
@@ -37,12 +39,15 @@ export default function Users() {
         console.log('btn clicked');
         dispatch(showCreateUserForm());
     }
+
     if (loading)
         return <div>Loading...</div>
+    if(error)
+        return <div>Error!!!! <br /> {errorMessage}</div>
     return (
         <div>
             <div className="d-flex flex-row justify-content-between p-4">
-                <h2>User management</h2>
+                <h2>Users management</h2>
                 <button className="btn btn-success" onClick={showUserForm}>+ Add new</button>
             </div>
             <Search />
@@ -81,7 +86,7 @@ export default function Users() {
                     </Table>
                     <div className="d-flex flex-row justify-content-between align-items-center">
                         <Pagination className="py-3 text-center" count={totalPages} page={pageNumber} onChange={handlePageChange} />
-                        <FormControl size="small">
+                        <FormControl size="small" className="mx-4">
                             <NativeSelect
                                 defaultValue={limit}
                                 onChange={changeLimit}
