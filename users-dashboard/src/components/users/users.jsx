@@ -4,7 +4,7 @@ import { fetchUsers } from "../../store/users/users.action";
 import Search from "../Search/Search";
 import { FormControl, IconButton, Pagination, Paper, NativeSelect, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
-import { showCreateUserForm } from "../../store/UI/ui.actions";
+import { showUserForm, hideUserForm } from "../../store/UI/ui.actions";
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -35,20 +35,20 @@ export default function Users() {
         let newPage = Math.ceil(prevElementsCount / newLimit);
         dispatch(fetchUsers(newPage, newLimit));
     }
-    function showUserForm(){
-        console.log('btn clicked');
-        dispatch(showCreateUserForm());
+    function showForm(userId) {
+        dispatch(showUserForm(userId));
     }
+
 
     if (loading)
         return <div>Loading...</div>
-    if(error)
+    if (error)
         return <div>Error!!!! <br /> {errorMessage}</div>
     return (
         <div>
             <div className="d-flex flex-row justify-content-between p-4">
                 <h2>Users management</h2>
-                <button className="btn btn-success" onClick={showUserForm}>+ Add new</button>
+                <button className="btn btn-success" onClick={showForm}>+ Add new</button>
             </div>
             <Search />
             <div style={{ height: 500, width: '100%' }}>
@@ -72,7 +72,7 @@ export default function Users() {
                                         <TableCell padding="none" align="right">{user.firstName}</TableCell>
                                         <TableCell padding="none" align="right">{user.lastName}</TableCell>
                                         <TableCell padding="none" align="right">
-                                            <IconButton>
+                                            <IconButton onClick={(event) => { showForm(user.id) }}>
                                                 <Edit htmlColor="green" />
                                             </IconButton>
                                             <IconButton>

@@ -5,7 +5,7 @@ import {
     Radio, Modal, 
     TextField, FormControlLabel, FormLabel
 } from '@mui/material';
-import { hideCreateUserForm } from '../../store/UI/ui.actions';
+import { hideUserForm } from '../../store/UI/ui.actions';
 
 export default function UserForm() {
     const open = useSelector(({ ui }) => ui.createUser || ui.updateUser)
@@ -22,7 +22,7 @@ export default function UserForm() {
     };
 
     function close(){
-        dispatch(hideCreateUserForm());
+        dispatch(hideUserForm());
     }
     return (
         <div>
