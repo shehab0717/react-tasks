@@ -6,9 +6,11 @@ const initialState = {
     userDetails: {},
     error: false,
     errorMessage: '',
+    pageNumber: 0,
+    total: 0,
 }
 
-const usersReducer =  (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case userActionTypes.FETCH_USERS_START:
             return {
@@ -20,7 +22,10 @@ const usersReducer =  (state = initialState, action) => {
                 ...state,
                 loading: false,
                 usersData: action.payload.data,
-                pageNumber: action.payload.page,
+                pageNumber: action.payload.page + 1,
+                total: action.payload.total,
+                limit: action.payload.limit,
+                totalPages: Math.ceil(action.payload.total / action.payload.limit)
             }
 
         case userActionTypes.FETCH_USERS_FAIL:
@@ -28,9 +33,9 @@ const usersReducer =  (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: true,
-                errorMessage: action.payLoad
+                errorMessage: action.payload
             };
-        
+
 
         default:
             return state;

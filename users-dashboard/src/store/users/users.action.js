@@ -25,14 +25,14 @@ function fetchUsersFailure(errorMessage) {
     }
 
 }
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = (pageNumber, limit) => async (dispatch) => {
     dispatch(fetchUsersStart());
-    try{
-        const users = await getUsers(1, 20);
+    try {
+        const users = await getUsers(pageNumber, limit);
         console.log(users);
         dispatch(fetchUsersSuccess(users));
     }
-    catch(error){
+    catch (error) {
         dispatch(fetchUsersFailure("Error: can't fetch users!"));
     }
 };
