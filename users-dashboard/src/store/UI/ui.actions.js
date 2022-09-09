@@ -1,23 +1,13 @@
 
 import actionTypes from './ui.types'
-export function showCreateUserForm(){
+export function showUserForm(userId){
     return{
-        type: actionTypes.SHOW_CREATE_USER_FORM,
+        type: actionTypes.SHOW_USER_FORM,
+        payload: userId
     }
 }
-export function hideCreateUserForm(){
+export function hideUserForm(){
     return{
-        type: actionTypes.HIDE_CREATE_USER_FORM,
-    }
-}
-export function showUpdateUserForm(user){
-    return{
-        type: actionTypes.SHOW_UPDATE_USER_FORM,
-        payload: user
-    }
-}
-export function hideUpdateUserForm(){
-    return{
-        type: actionTypes.HIDE_UPDATE_USER_FORM,
+        type: actionTypes.HIDE_USER_FORM,
     }
 }
