@@ -9,3 +9,8 @@ export async function  getUser (userId) {
     const response = await apiClient.get(`user/${userId}`); 
     return response.data;
 }
+
+export async function createNewUser(userData){
+    const response = await apiClient.post('/user/create',userData);
+    return response;
+}

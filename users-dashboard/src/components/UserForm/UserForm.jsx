@@ -6,15 +6,24 @@ import {
     TextField, FormControlLabel, FormLabel
 } from '@mui/material';
 import { hideUserForm } from '../../store/UI/ui.actions';
-import { useEffect } from 'react';
-import { doneEditing, fetchUser } from '../../store/users/users.action';
-import { DatePicker } from '@mui/lab';
+import { useEffect, useState } from 'react';
+import { doneEditing, fetchUser, createUser } from '../../store/users/users.action';
 
 export default function UserForm() {
     const open = useSelector(({ ui }) => ui.showUserForm)
     const isEdit = useSelector(({ ui }) => ui.editMode);
     const userId = useSelector(({ users }) => users.editUserId);
-    const userDetails = useSelector(({ users }) => users.userDetails);
+    const user = useSelector(({ users }) => users.userDetails);
+    const isLoading = useSelector(({ users }) => users.loadingUser);
+
+    const [title, setTitle] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [gender, setGender] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+
 
     const dispatch = useDispatch();
     const style = {
@@ -27,25 +36,40 @@ export default function UserForm() {
         p: 4,
         borderRadius: 10,
     };
-    var user = (isEdit && userDetails) ? userDetails : {
-        title: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        gender: '',
-        dateOfBirth: '',
-    }
+
 
     useEffect(() => {
         if (userId) {
             dispatch(fetchUser(userId));
         }
     }, [userId])
+
+    useEffect(() => {
+        if (isEdit) {
+            setTitle(user.title ?? '');
+            setFirstName(user.firstName ?? '');
+            setLastName(user.lastName ?? '');
+            setGender(user.gender ?? '');
+            setDateOfBirth(user.dateOfBirth ?? '');
+            setEmail(user.email ?? '');
+            setPhone(user.phone ?? '');
+        }
+    }, [user])
+
     function close() {
         dispatch(doneEditing());
         dispatch(hideUserForm());
     }
+
+    function btnClick() {
+        if (isEdit) {
+            console.log('edit mode');
+        }
+        else {
+            dispatch(createUser({ title, firstName, lastName, email, phone, gender }));
+        }
+    }
+
     return (
         <div>
             <Modal
@@ -55,33 +79,43 @@ export default function UserForm() {
             >
                 <div className='p-4 m-auto bg-light' style={style}>
                     {
-                        (isEdit && !userDetails)
+                        (isEdit && isLoading)
                             ? <div>Loading</div>
-                            : <form >
-                                <h3 className='mb-3'>New user</h3>
-                                <TextField className='mb-3' label='Title' variant='outlined' placeholder='mr/ ms/ miss' fullWidth value={user.title} />
-                                <TextField className='mb-3 me-3' label='First name' variant='outlined' value={user.firstName} />
-                                <TextField className='mb-3' label='Last name' variant='outlined' value={user.lastName} />
+                            : <div>
+                                <h3 className='mb-3'>{isEdit ? 'Edit user' : 'New User'}</h3>
+                                <TextField className='mb-3' label='Title'
+                                    variant='outlined' placeholder='mr/ ms/ miss' value={title} fullWidth
+                                    onChange={(event) => setTitle(event.target.value)}
+                                />
+                                <TextField className='mb-3 me-3' label='First name' variant='outlined'
+                                    value={firstName} onChange={(event) => setFirstName(event.target.value)} />
+                                <TextField className='mb-3' label='Last name' variant='outlined'
+                                    value={lastName} onChange={(event) => setLastName(event.target.value)} />
                                 <br />
                                 <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
                                 <RadioGroup
                                     row
-                                    value={user.gender}
+                                    value={gender}
                                     name="radio-buttons-group"
+                                    onChange={(event) => setGender(event.target.value)}
                                 >
                                     <FormControlLabel value="female" control={<Radio />} label="Female" />
                                     <FormControlLabel value="male" control={<Radio />} label="Male" />
                                 </RadioGroup>
-                                <TextField className='mb-3' label='Email' variant='outlined' fullWidth value={user.email} />
+                                <TextField className='mb-3' label='Email' variant='outlined' fullWidth
+                                    value={email} onChange={(event) => setEmail(event.target.value)} />
                                 <TextField className='mb-3' label='Birth date' variant='outlined' fullWidth
-                                    value={new Date(user.dateOfBirth).toLocaleDateString('en-US')}
+                                    value={dateOfBirth}
+                                    onChange={(event) => setDateOfBirth(event.target.value)}
                                 />
-                                <TextField className='mb-3' label='Phone' variant='outlined' fullWidth value={user.phone} />
+                                <TextField className='mb-3' label='Phone' variant='outlined' fullWidth
+                                    value={phone} onChange={(event) => setPhone(event.target.value)} />
                                 <div className='flex flex-row-reverse'>
-                                    <button className='btn btn-primary ms-4'>Save</button>
+                                    <button className='btn btn-primary ms-4' onClick={btnClick}>Save</button>
                                     <button className='btn text-danger' onClick={close}>Cancel</button>
                                 </div>
-                            </form>
+                            </div>
+
                     }
                 </div>
             </Modal>

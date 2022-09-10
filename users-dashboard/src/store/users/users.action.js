@@ -1,4 +1,4 @@
-import { getUsers, getUser } from "./users.service";
+import * as services from "./users.service";
 import userActionTypes from "./users.types";
 
 function fetchUsersStart() {
@@ -50,7 +50,7 @@ function fetchUserFailure(errorMessage) {
 export const fetchUsers = (pageNumber, limit) => async (dispatch) => {
     dispatch(fetchUsersStart());
     try {
-        const users = await getUsers(pageNumber, limit);
+        const users = await services.getUsers(pageNumber, limit);
         console.log(users);
         dispatch(fetchUsersSuccess(users));
     }
@@ -63,7 +63,7 @@ export const fetchUsers = (pageNumber, limit) => async (dispatch) => {
 export const fetchUser = (userId) => async (dispatch) => {
     dispatch(fetchUserStart());
     try {
-        const user = await getUser(userId);
+        const user = await services.getUser(userId);
         console.log(user);
         dispatch(fetchUserSuccess(user));
     }
@@ -79,8 +79,41 @@ export function startEditing(userId){
         payload: userId,
     }
 }
+
+
 export function doneEditing(){
     return {
         type: userActionTypes.DONE_EDITING
+    }
+}
+
+function createUserStart(){
+    return{
+        type: userActionTypes.CREATE_USER_START
+    }
+}
+
+function createUserSuccess(userData){
+    return {
+        type: userActionTypes.CREATE_USER_SUCCESS,
+        payload: userData
+    }
+}
+
+function createUserFail(errorMessage){
+    return {
+        type: userActionTypes.CREATE_USER_FAILURE,
+        payload: errorMessage
+    }
+}
+
+export const createUser = (userData) => async (dispatch) => {
+    dispatch(createUserStart());
+    try{
+        const response = await services.createNewUser(userData);
+        dispatch(createUserSuccess(response));
+    }
+    catch(error){
+        dispatch(createUserFail(error));
     }
 }

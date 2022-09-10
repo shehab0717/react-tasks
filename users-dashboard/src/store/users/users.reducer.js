@@ -1,11 +1,12 @@
 
 import userActionTypes from "./users.types"
+
+
 const initialState = {
     loadingUsers: true,
     loadingUser: true,
+    creatingUser: false,
     usersData: {},
-    // userDetails: {},
-    // editUserId: undefiened
     error: false,
     errorMessage: '',
     pageNumber: 0,
@@ -60,6 +61,27 @@ const usersReducer = (state = initialState, action) => {
                 errorMessage: action.payload
             };
         
+        case userActionTypes.CREATE_USER_START:
+            return {
+                ...state,
+                creatingUser: true,
+            };
+        
+        case userActionTypes.CREATE_USER_SUCCESS:
+            return {
+                ...state,
+                creatingUser: false,
+                // userDetails: action.payload,
+            };
+
+        case userActionTypes.CREATE_USER_FAILURE:
+            return{
+                ...state,
+                creatingUser: false,
+                error: true,
+                errorMessage: action.payload
+            };
+            
         case userActionTypes.START_EDITING:
             return {
                 ...state,
@@ -70,9 +92,9 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 editUserId: undefined,
-                userDetails: undefined
+                userDetails: {}
             };
-
+        
         default:
             return state;
     }
