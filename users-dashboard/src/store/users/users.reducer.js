@@ -5,6 +5,7 @@ import userActionTypes from "./users.types"
 const initialState = {
     loadingUsers: true,
     loadingUser: true,
+    isEditing: false,
     creatingUser: false,
     usersData: {},
     error: false,
@@ -78,6 +79,27 @@ const usersReducer = (state = initialState, action) => {
             return{
                 ...state,
                 creatingUser: false,
+                error: true,
+                errorMessage: action.payload
+            };
+
+        case userActionTypes.UPDATE_USER_START:
+            return {
+                ...state,
+                isEditing: true,
+            };
+        
+        case userActionTypes.UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                isEditing: false,
+                userDetails: action.payload
+            };
+
+        case userActionTypes.UPDATE_USER_FAILURE:
+            return {
+                ...state,
+                isEditing: false,
                 error: true,
                 errorMessage: action.payload
             };

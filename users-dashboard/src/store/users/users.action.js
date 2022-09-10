@@ -73,7 +73,7 @@ export const fetchUser = (userId) => async (dispatch) => {
 };
 
 
-export function startEditing(userId){
+export function startEditing(userId) {
     return {
         type: userActionTypes.START_EDITING,
         payload: userId,
@@ -81,26 +81,26 @@ export function startEditing(userId){
 }
 
 
-export function doneEditing(){
+export function doneEditing() {
     return {
         type: userActionTypes.DONE_EDITING
     }
 }
 
-function createUserStart(){
-    return{
+function createUserStart() {
+    return {
         type: userActionTypes.CREATE_USER_START
     }
 }
 
-function createUserSuccess(userData){
+function createUserSuccess(userData) {
     return {
         type: userActionTypes.CREATE_USER_SUCCESS,
         payload: userData
     }
 }
 
-function createUserFail(errorMessage){
+function createUserFail(errorMessage) {
     return {
         type: userActionTypes.CREATE_USER_FAILURE,
         payload: errorMessage
@@ -109,11 +109,42 @@ function createUserFail(errorMessage){
 
 export const createUser = (userData) => async (dispatch) => {
     dispatch(createUserStart());
-    try{
+    try {
         const response = await services.createNewUser(userData);
         dispatch(createUserSuccess(response));
     }
-    catch(error){
+    catch (error) {
         dispatch(createUserFail(error));
+    }
+}
+
+
+function updateUserStart() {
+    return {
+        type: userActionTypes.UPDATE_USER_START
+    }
+}
+
+function updateUserSuccess(userData) {
+    return {
+        type: userActionTypes.UPDATE_USER_SUCCESS,
+        payload: userData
+    }
+}
+
+function updateUserFail(error) {
+    return {
+        type: userActionTypes.UPDATE_USER_FAILURE,
+        payload: error
+    }
+}
+
+export const updateUser = (userData) => async (dispatch) => {
+    dispatch(updateUserStart());
+    try {
+        const response = await services.updateUser(userData);
+        dispatch(updateUserSuccess(response));
+    } catch (error) {
+        dispatch(updateUserFail(error));
     }
 }

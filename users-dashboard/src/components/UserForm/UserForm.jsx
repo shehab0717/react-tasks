@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { hideUserForm } from '../../store/UI/ui.actions';
 import { useEffect, useState } from 'react';
-import { doneEditing, fetchUser, createUser } from '../../store/users/users.action';
+import { doneEditing, fetchUser, createUser, updateUser } from '../../store/users/users.action';
 
 export default function UserForm() {
     const open = useSelector(({ ui }) => ui.showUserForm)
@@ -15,6 +15,7 @@ export default function UserForm() {
     const userId = useSelector(({ users }) => users.editUserId);
     const user = useSelector(({ users }) => users.userDetails);
     const isLoading = useSelector(({ users }) => users.loadingUser);
+    const isEditing = useSelector(({ users }) => users.isEditing);
 
     const [title, setTitle] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -63,7 +64,7 @@ export default function UserForm() {
 
     function btnClick() {
         if (isEdit) {
-            console.log('edit mode');
+            dispatch(updateUser({ id: userId, title, firstName, lastName, phone, gender }));
         }
         else {
             dispatch(createUser({ title, firstName, lastName, email, phone, gender }));
@@ -111,7 +112,7 @@ export default function UserForm() {
                                 <TextField className='mb-3' label='Phone' variant='outlined' fullWidth
                                     value={phone} onChange={(event) => setPhone(event.target.value)} />
                                 <div className='flex flex-row-reverse'>
-                                    <button className='btn btn-primary ms-4' onClick={btnClick}>Save</button>
+                                    <button className='btn btn-primary ms-4' disabled={isEditing} onClick={btnClick}>Save</button>
                                     <button className='btn text-danger' onClick={close}>Cancel</button>
                                 </div>
                             </div>
