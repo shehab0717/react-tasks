@@ -1,5 +1,4 @@
-import APIClient from "../../utils/apiClient";
-import { getUsers } from "./users.service";
+import { getUsers, getUser } from "./users.service";
 import userActionTypes from "./users.types";
 
 function fetchUsersStart() {
@@ -25,6 +24,29 @@ function fetchUsersFailure(errorMessage) {
     }
 
 }
+function fetchUserStart() {
+    console.log('fetching user...');
+    return {
+        type: userActionTypes.FETCH_USER_START
+    }
+
+}
+function fetchUserSuccess(user) {
+    console.log('fetch user succeeded');
+    return {
+        type: userActionTypes.FETCH_USER_SUCCESS,
+        payload: user
+    }
+
+}
+function fetchUserFailure(errorMessage) {
+    console.log('fetch user failed');
+    return {
+        type: userActionTypes.FETCH_USER_FAIL,
+        payload: errorMessage
+    }
+
+}
 export const fetchUsers = (pageNumber, limit) => async (dispatch) => {
     dispatch(fetchUsersStart());
     try {
@@ -36,3 +58,29 @@ export const fetchUsers = (pageNumber, limit) => async (dispatch) => {
         dispatch(fetchUsersFailure("Error: can't fetch users!"));
     }
 };
+
+
+export const fetchUser = (userId) => async (dispatch) => {
+    dispatch(fetchUserStart());
+    try {
+        const user = await getUser(userId);
+        console.log(user);
+        dispatch(fetchUserSuccess(user));
+    }
+    catch (error) {
+        dispatch(fetchUserFailure("Error: can't fetch this!"));
+    }
+};
+
+
+export function startEditing(userId){
+    return {
+        type: userActionTypes.START_EDITING,
+        payload: userId,
+    }
+}
+export function doneEditing(){
+    return {
+        type: userActionTypes.DONE_EDITING
+    }
+}

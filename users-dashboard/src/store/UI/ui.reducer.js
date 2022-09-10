@@ -1,22 +1,28 @@
 import uiActionTypes from "./ui.types";
 
 const initState = {
-    createUser: false,
-    updateUser: false,
-    userDetails: undefined,
+    showUserForm: false,
+    editMode: false
 }
 
 export default function uiReducer(state = initState, action) {
     switch (action.type) {
-        case uiActionTypes.SHOW_USER_FORM:
+        case uiActionTypes.SHOW_CREATE_USER_FORM:
             return {
                 ...state,
-                createUser: true,
-            }
+                showUserForm: true,
+                editMode: false,
+            };
+        case uiActionTypes.SHOW_UPDATE_USER_FORM:
+            return {
+                ...state,
+                showUserForm: true,
+                editMode: true,
+            };
         case uiActionTypes.HIDE_USER_FORM:
             return {
                 ...state,
-                createUser: false,
+                showUserForm: false,
             }
         default:
             return state;

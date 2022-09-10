@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../../store/users/users.action";
+import { fetchUsers, startEditing } from "../../store/users/users.action";
 import Search from "../Search/Search";
 import { FormControl, IconButton, Pagination, Paper, NativeSelect, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
-import { showUserForm, hideUserForm } from "../../store/UI/ui.actions";
+import { showCreateUserForm, showUpdateUserForm } from "../../store/UI/ui.actions";
+
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function Users() {
     const error = useSelector(({ users }) => users.error);
     const errorMessage = useSelector(({ users }) => users.errorMessage);
     const totalPages = useSelector(({ users }) => users.totalPages);
-    const loading = useSelector(({ users }) => users.loading);
+    const loading = useSelector(({ users }) => users.loadingUsers);
     const limit = useSelector(({ users }) => users.limit);
 
 
@@ -30,13 +31,17 @@ export default function Users() {
 
     function changeLimit(event) {
         const newLimit = event.target.value;
-        console.log(newLimit);
         let prevElementsCount = (pageNumber - 1) * limit;
         let newPage = Math.ceil(prevElementsCount / newLimit);
         dispatch(fetchUsers(newPage, newLimit));
     }
-    function showForm(userId) {
-        dispatch(showUserForm(userId));
+    function showCreateForm(){
+        dispatch(showCreateUserForm());
+    }
+
+    function showEditForm(userId) {
+        dispatch(startEditing(userId));
+        dispatch(showUpdateUserForm());
     }
 
 
@@ -48,7 +53,7 @@ export default function Users() {
         <div>
             <div className="d-flex flex-row justify-content-between p-4">
                 <h2>Users management</h2>
-                <button className="btn btn-success" onClick={showForm}>+ Add new</button>
+                <button className="btn btn-success" onClick={()=>{showCreateForm()}}>+ Add new</button>
             </div>
             <Search />
             <div style={{ height: 500, width: '100%' }}>
@@ -72,7 +77,7 @@ export default function Users() {
                                         <TableCell padding="none" align="right">{user.firstName}</TableCell>
                                         <TableCell padding="none" align="right">{user.lastName}</TableCell>
                                         <TableCell padding="none" align="right">
-                                            <IconButton onClick={(event) => { showForm(user.id) }}>
+                                            <IconButton onClick={(event) => { showEditForm(user.id) }}>
                                                 <Edit htmlColor="green" />
                                             </IconButton>
                                             <IconButton>

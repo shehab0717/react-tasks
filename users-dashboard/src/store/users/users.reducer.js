@@ -1,9 +1,11 @@
 
 import userActionTypes from "./users.types"
 const initialState = {
-    loading: true,
-    usersData: {}, //pageNumber, total, users(Array)
-    userDetails: {},
+    loadingUsers: true,
+    loadingUser: true,
+    usersData: {},
+    // userDetails: {},
+    // editUserId: undefiened
     error: false,
     errorMessage: '',
     pageNumber: 0,
@@ -15,31 +17,64 @@ const usersReducer = (state = initialState, action) => {
         case userActionTypes.FETCH_USERS_START:
             return {
                 ...state,
-                loading: true
+                loadingUsers: true
             };
+        
         case userActionTypes.FETCH_USERS_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                loadingUsers: false,
                 usersData: action.payload.data,
                 pageNumber: action.payload.page + 1,
                 total: action.payload.total,
                 limit: action.payload.limit,
                 totalPages: Math.ceil(action.payload.total / action.payload.limit)
-            }
+            };
 
         case userActionTypes.FETCH_USERS_FAIL:
             return {
                 ...state,
-                loading: false,
+                loadingUsers: false,
                 error: true,
                 errorMessage: action.payload
             };
 
+        case userActionTypes.FETCH_USER_START:
+            return {
+                ...state,
+                loadingUser: true,
+            };
+        
+        case userActionTypes.FETCH_USER_SUCCESS:
+            return {
+                ...state,
+                loadingUser: false,
+                userDetails: action.payload
+            };
+        
+        case userActionTypes.FETCH_USER_FAIL:
+            return {
+                ...state,
+                loadingUser: false,
+                error: true,
+                errorMessage: action.payload
+            };
+        
+        case userActionTypes.START_EDITING:
+            return {
+                ...state,
+                editUserId:action.payload,
+            };
+        
+        case userActionTypes.DONE_EDITING:
+            return {
+                ...state,
+                editUserId: undefined,
+                userDetails: undefined
+            };
 
         default:
             return state;
-
     }
 }
 
