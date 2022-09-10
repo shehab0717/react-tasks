@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { hideUserForm } from '../../store/UI/ui.actions';
 import { useEffect, useState } from 'react';
-import { doneEditing, fetchUser, createUser, updateUser } from '../../store/users/users.action';
+import { doneEditing, fetchUser, createUser, updateUser, fetchUsers } from '../../store/users/users.action';
 
 export default function UserForm() {
     const open = useSelector(({ ui }) => ui.showUserForm)
@@ -16,6 +16,8 @@ export default function UserForm() {
     const user = useSelector(({ users }) => users.userDetails);
     const isLoading = useSelector(({ users }) => users.loadingUser);
     const isEditing = useSelector(({ users }) => users.isEditing);
+    const pageNumber = useSelector(({ users }) => users.pageNumber);
+    const limit = useSelector(({ users }) => users.limit);
 
     const [title, setTitle] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -69,6 +71,8 @@ export default function UserForm() {
         else {
             dispatch(createUser({ title, firstName, lastName, email, phone, gender }));
         }
+        close();
+        dispatch(fetchUsers(pageNumber, limit));
     }
 
     return (

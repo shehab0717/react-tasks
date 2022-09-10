@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, startEditing } from "../../store/users/users.action";
+import { fetchUsers, startEditing, deleteUser } from "../../store/users/users.action";
 import Search from "../Search/Search";
 import { FormControl, IconButton, Pagination, Paper, NativeSelect, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Delete, Edit } from "@material-ui/icons";
@@ -11,11 +11,13 @@ export default function Users() {
     const dispatch = useDispatch();
     const users = useSelector(({ users }) => users.usersData);
     const pageNumber = useSelector(({ users }) => users.pageNumber);
+    const limit = useSelector(({ users }) => users.limit);
     const error = useSelector(({ users }) => users.error);
     const errorMessage = useSelector(({ users }) => users.errorMessage);
     const totalPages = useSelector(({ users }) => users.totalPages);
     const loading = useSelector(({ users }) => users.loadingUsers);
-    const limit = useSelector(({ users }) => users.limit);
+    const isDeleting = useSelector(({ users }) => users.isDeleting);
+    const deleteUserId = useSelector(({ users }) => users.deelteUserId);
 
 
     useEffect(
@@ -35,7 +37,7 @@ export default function Users() {
         let newPage = Math.ceil(prevElementsCount / newLimit);
         dispatch(fetchUsers(newPage, newLimit));
     }
-    function showCreateForm(){
+    function showCreateForm() {
         dispatch(showCreateUserForm());
     }
 
@@ -44,6 +46,10 @@ export default function Users() {
         dispatch(showUpdateUserForm());
     }
 
+    function userDelete (userId){
+        dispatch(deleteUser(userId));
+        dispatch(fetchUsers(pageNumber, limit));
+    }
 
     if (loading)
         return <div>Loading...</div>
@@ -53,7 +59,7 @@ export default function Users() {
         <div>
             <div className="d-flex flex-row justify-content-between p-4">
                 <h2>Users management</h2>
-                <button className="btn btn-success" onClick={()=>{showCreateForm()}}>+ Add new</button>
+                <button className="btn btn-success" onClick={() => { showCreateForm() }}>+ Add new</button>
             </div>
             <Search />
             <div style={{ height: 500, width: '100%' }}>
@@ -80,7 +86,7 @@ export default function Users() {
                                             <IconButton onClick={(event) => { showEditForm(user.id) }}>
                                                 <Edit htmlColor="green" />
                                             </IconButton>
-                                            <IconButton>
+                                            <IconButton onClick={(event) => {  userDelete(user.id) }} disabled={isDeleting && user.id == deleteUserId}>
                                                 <Delete htmlColor="darkred" />
                                             </IconButton>
                                         </TableCell>

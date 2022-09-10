@@ -148,3 +148,33 @@ export const updateUser = (userData) => async (dispatch) => {
         dispatch(updateUserFail(error));
     }
 }
+
+
+function deleteUserStart(userId){
+    return{
+        type: userActionTypes.DELETE_USER_START,
+        payload: userId
+    }
+}
+function deleteUserSuccess(){
+    return{
+        type: userActionTypes.DELETE_USER_SUCCESS
+    }
+}
+function deleteUserFail(error){
+    return{
+        type: userActionTypes.DELETE_USER_FAILURE,
+        payload: error
+    }
+}
+
+export const deleteUser = (userId) => async (dispatch)=>{
+    dispatch(deleteUserStart(userId));
+    try {
+        const response = await services.deleteUser(userId);
+        dispatch(deleteUserSuccess());
+    }
+    catch(error){
+        dispatch(deleteUserFail(error));
+    }
+}

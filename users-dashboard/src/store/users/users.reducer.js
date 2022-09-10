@@ -6,6 +6,8 @@ const initialState = {
     loadingUsers: true,
     loadingUser: true,
     isEditing: false,
+    isDeleting: false,
+    deleteUserId: undefined,
     creatingUser: false,
     usersData: {},
     error: false,
@@ -104,6 +106,27 @@ const usersReducer = (state = initialState, action) => {
                 errorMessage: action.payload
             };
             
+        case userActionTypes.DELETE_USER_START:
+            return {
+                ...state,
+                isDeleting: true,
+                deleteUserId: action.payload
+            };
+
+        case userActionTypes.DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                isDeleting: false,
+            };
+
+        case userActionTypes.DELETE_USER_FAILURE:
+            return {
+                ...state,
+                isDeleting: false,
+                error: true,
+                errorMessage: action.payload,
+            }
+        
         case userActionTypes.START_EDITING:
             return {
                 ...state,
